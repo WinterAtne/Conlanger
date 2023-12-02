@@ -1,0 +1,25 @@
+#!/bin/bash
+
+ARG1=$1
+
+
+PROJECT="Conlanger"
+ALLPATH=$(pwd)
+BUILDPATH="${ALLPATH}/build"
+FINPATH=$(basename $ALLPATH)
+
+
+
+[[ "$ARG1" == *'r'* ]] && { [ -d $BUILDPATH ] && { rm -rf $BUILDPATH; } }
+[ -d $BUILDPATH ] || { mkdir $BUILDPATH; }
+
+
+
+cd $BUILDPATH
+cmake -S $ALLPATH
+
+make ${PROJECT} || { echo 'corrupted CMakeLists.txt' ; exit 2; }
+cp -v "${BUILDPATH}/${PROJECT}.o" $ALLPATH
+
+echo "success!" ; exit 0
+
