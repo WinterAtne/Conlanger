@@ -17,7 +17,7 @@ void Dictionary::Insert(string wrd) {
         } 
         node = node->child[letter];
     }
-    node->RealizeWord(wrd, 0);
+    node->RealizeWord(wrd, wordCount);
 
 }
 

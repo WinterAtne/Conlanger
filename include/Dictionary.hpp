@@ -7,6 +7,7 @@
 class Dictionary {
 private:
     Lexeme* root;
+    uint wordCount = 0;
     std::vector<std::string[2]> properties;
 
 
