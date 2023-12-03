@@ -3,6 +3,8 @@
 using std::string;
 using std::vector;
 
+
+
 Dictionary::Dictionary() {
     root = new Lexeme();
 }
@@ -15,7 +17,8 @@ void Dictionary::Insert(string wrd) {
         } 
         node = node->child[letter];
     }
-    node->word = wrd;
+    node->RealizeWord(wrd, 0);
+
 }
 
 Lexeme* Dictionary::Search(string wrd) {
@@ -26,4 +29,21 @@ Lexeme* Dictionary::Search(string wrd) {
     }
     if (node->word != "") return node;
     else return nullptr;
+}
+
+std::string Dictionary::SearchProperties(std::string property) {
+    for (auto prop : properties) {
+        if (prop[0] == property) {
+            return prop[1];
+        }
+    }
+
+    return "";
+}
+
+int Dictionary::DefineLexeme(Lexeme* lex, std::string property, std::string value, bool overWrite) {
+    if (SearchProperties(property) == "") return 1;
+
+    lex->DefineProperty(property, value, overWrite);
+    return 0;
 }
