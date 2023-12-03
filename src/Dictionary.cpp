@@ -3,17 +3,17 @@
 using std::string;
 using std::vector;
 
-
+#include <iostream>
 
 Dictionary::Dictionary() {
-    root = new Lexeme();
+    root = new Lexeme(nullptr);
 }
 
 void Dictionary::Insert(string wrd) {
     Lexeme *node = root;
     for (auto letter : wrd) {
         if (node->child.find(letter) == node->child.end()) {
-            node->child.insert({letter, new Lexeme()});
+            node->child.insert({letter, new Lexeme(node)});
         } 
         node = node->child[letter];
     }
@@ -46,4 +46,15 @@ int Dictionary::DefineLexeme(Lexeme* lex, std::string property, std::string valu
 
     lex->DefineProperty(property, value, overWrite);
     return 0;
+}
+
+std::vector<Lexeme*> Dictionary::ReadDictionary(Lexeme* node) {
+    std::vector<Lexeme*> outList;
+    for (const auto& [key, lex] : node->child) {
+        if (lex->word != "") outList.push_back(lex);;
+        std::vector<Lexeme*> childOutList = ReadDictionary(lex);
+        std::move(childOutList.begin(), childOutList.end(), std::back_inserter(outList));
+    }
+
+    return outList;
 }

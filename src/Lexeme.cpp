@@ -1,6 +1,10 @@
 #include "Lexeme.hpp"
 
 
+Lexeme::Lexeme(Lexeme* Parent) {
+    parent = Parent;
+}
+
 
 void Lexeme::RealizeWord(std::string rootLexeme, uint ID) {
     word = rootLexeme;
