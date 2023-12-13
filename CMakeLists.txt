@@ -7,6 +7,8 @@ file(GLOB SOURCES "src/*.cpp")
 
 add_executable(Conlanger ${SOURCES})
 target_include_directories(Conlanger PUBLIC "include/")
+target_link_libraries(Conlanger LINK_PUBLIC sqlite3)
+
 set_target_properties(
     Conlanger
     PROPERTIES

@@ -1,31 +1,33 @@
 #include <iostream>
 #include <string>
+#include <sqlite3.h>
 
-
-#include "Dictionary.hpp"
-
-// int main() {
-//     std::cout << "Hello World" << std::endl;
-//     return 0;
-// }
-
+#include "Parser.hpp"
 
 int main() {
-    Dictionary dict = Dictionary();
-    dict.Insert("bungus");
-    dict.Insert("bun");
-    dict.Insert("a");
-    dict.Insert("an");
-    dict.Insert("and");
-    dict.Insert("anderson");
+    bool program_should_close = false;
 
+    sqlite3* DataBase; 
+    int exit = 0; 
+    exit = sqlite3_open("languages.db", &DataBase);
 
+    
+    while(!program_should_close) {
+        //If we error out sql, we should probably just close the program and return an error
+        if (exit != SQLITE_OK) {
+            program_should_close = true;
+            std::cout << "An Error has occured in SQLite; it is possible your database has been corrupted, or your command was invalid and the Conlanger Parser simply failled to realize. The program will now close automatically" << std::endl;
+            sqlite3_close(DataBase); 
+            return exit;
+        }
+        std::string input;
+        std::getline(std::cin, input);
 
-    std::vector<Lexeme*> lss = dict.ReadDictionary(dict.root);
+        Parser::Parse(input, DataBase);
 
-    for (auto lex : lss) {
-        std::cout << lex->word << std::endl;
     }
 
+
+    sqlite3_close(DataBase); 
     return 0;
 }
