@@ -6,8 +6,6 @@
 #include "Executer.hpp"
 
 class Parser {
-private:
-    static std::vector<std::string> SplitCommand(const std::string input);
 public:
-    static int Parse(const std::string input, const sqlite3* DataBase);
+    static int Parse(const std::string input);
 };
