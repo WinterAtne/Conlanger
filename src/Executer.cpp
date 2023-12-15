@@ -5,6 +5,7 @@
 
 sqlite3 *Executer::Database;
 int Executer::sqlExitCode = 0;
+char* Executer::messageError;
 
 int Executer::Init(std::vector<std::string> args) {
     Decoder::AddFunction("Create", Create);
@@ -14,14 +15,32 @@ int Executer::Init(std::vector<std::string> args) {
     Decoder::AddFunction("Error", Error);
     return sqlite3_open(args[1].c_str(), &Database);
 }
+
 int Executer::Close(std::vector<std::string> args) {
     sqlite3_close(Database);
     return 200;
 }
+
 int Executer::Create(std::vector<std::string> args) {
-    std::cout << args[1] << std::endl;
-    return 200;
+    // For ease of reading, the following arguments are gonna get names.
+    std::string language = args[1];
+
+    std::string sql = "CREATE TABLE " + language + "("
+                      "WordID INT, "
+                      "Definition TEXT, "
+                      "PartOfSpeech TEXT "
+                      ");";
+
+    sqlExitCode = sqlite3_exec(Database, sql.c_str(), NULL, 0, &messageError);
+
+    if (sqlExitCode != SQLITE_OK) {
+        std::cerr << messageError << std::endl;
+        return sqlExitCode;
+    }
+
+    return sqlExitCode;
 }
+
 int Executer::Add(std::vector<std::string> args) {
     std::cout << args[1] << std::endl;
     return 200;
