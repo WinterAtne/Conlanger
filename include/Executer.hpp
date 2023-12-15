@@ -8,6 +8,7 @@ class Executer {
 private:
     static sqlite3* Database;
     static int sqlExitCode;
+    static char* messageError;
     
 public:
     static int Error(std::vector<std::string> args);
