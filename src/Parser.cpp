@@ -1,6 +1,9 @@
 #include "Parser.hpp"
 #include "Spliter.hpp"
 #include "Decoder.hpp"
+#include "Sanitizer.hpp"
+
+#include <iostream>
 
 
 int Parser::Parse(const std::string input) {
@@ -9,7 +12,8 @@ int Parser::Parse(const std::string input) {
     if (splitInput[0] == "Init") {
         Decoder::AddFunction("Init", Executer::Init);
     }
-    Decoder::GetFunction(splitInput[0])(splitInput);
+    std::vector<std::string> sanitizdInput = Sanitizer::Sanitize(splitInput);
+    Decoder::GetFunction(sanitizdInput[0])(sanitizdInput);
 
     return 200;
 }
