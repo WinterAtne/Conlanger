@@ -32,7 +32,7 @@ int Executer::Create(std::vector<std::string> args) {
     // For ease of reading, the following arguments are gonna get names.
     std::string language = args[1];
 
-    std::string sql = "CREATE TABLE " + language + "("
+    std::string sql = "CREATE TABLE " + language + "_Lexicon("
                       "WordID INT, "
                       "Definition TEXT, "
                       "PartOfSpeech TEXT "
