@@ -7,6 +7,13 @@ sqlite3 *Executer::Database;
 int Executer::sqlExitCode = 0;
 char* Executer::messageError;
 
+#define STANDARD_RETURN() { \
+    if (sqlExitCode != SQLITE_OK) { \
+        std::cerr << messageError << std::endl; \
+    } \
+    return sqlExitCode; \
+}
+
 int Executer::Init(std::vector<std::string> args) {
     Decoder::AddFunction("Create", Create);
     Decoder::AddFunction("Add", Add);
@@ -33,12 +40,7 @@ int Executer::Create(std::vector<std::string> args) {
 
     sqlExitCode = sqlite3_exec(Database, sql.c_str(), NULL, 0, &messageError);
 
-    if (sqlExitCode != SQLITE_OK) {
-        std::cerr << messageError << std::endl;
-        return sqlExitCode;
-    }
-
-    return sqlExitCode;
+    STANDARD_RETURN();
 }
 
 int Executer::Add(std::vector<std::string> args) {
