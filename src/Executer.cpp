@@ -11,6 +11,7 @@ int Executer::Init(std::vector<std::string> args) {
     Decoder::AddFunction("Add", Add);
     Decoder::AddFunction("Remove", Remove);
     Decoder::AddFunction("Fetch", Fetch);
+    Decoder::AddFunction("Error", Error);
     return sqlite3_open(args[1].c_str(), &Database);
 }
 int Executer::Close(std::vector<std::string> args) {
@@ -31,5 +32,9 @@ int Executer::Remove(std::vector<std::string> args) {
 }
 int Executer::Fetch(std::vector<std::string> args) {
     std::cout << args[1] << std::endl;
+    return 200;
+}
+int Executer::Error(std::vector<std::string> args) {
+    std::cout << "Bad Command " << args[1] << std::endl; 
     return 200;
 }
