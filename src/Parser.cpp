@@ -3,17 +3,16 @@
 #include "Decoder.hpp"
 #include "Sanitizer.hpp"
 
-#include <iostream>
-
 
 int Parser::Parse(const std::string input) {
     std::vector<std::string> splitInput = Spliter::Split(input);
+
     //There is probably a cleanerway to initialize the rest of these but for now it is tech debt;
     if (splitInput[0] == "Init") {
         Decoder::AddFunction("Init", Executer::Init);
     }
     std::vector<std::string> sanitizdInput = Sanitizer::Sanitize(splitInput);
-    Decoder::GetFunction(sanitizdInput[0])(sanitizdInput);
+    int exit = Decoder::GetFunction(sanitizdInput[0])(sanitizdInput);
 
-    return 200;
+    return exit;
 }

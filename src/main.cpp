@@ -4,15 +4,21 @@
 #include "Parser.hpp"
 
 int main() {
-    bool program_should_close = false;
+    bool programShouldClose = false;
+    Parser::Parse("Init languages.db");
     
     
-    while(!program_should_close) {
+    while(!programShouldClose) {
         std::string input;
         std::getline(std::cin, input);
 
-        Parser::Parse(input);
+        int exit = Parser::Parse(input);
 
+        if (-1 == exit) {
+            programShouldClose = true;
+            std::cout << "All Changes Saved, Closing Program" << std::endl;
+            break;
+        }
     }
     return 0;
 }

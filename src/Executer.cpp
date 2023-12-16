@@ -20,12 +20,13 @@ int Executer::Init(std::vector<std::string> args) {
     Decoder::AddFunction("Remove", Remove);
     Decoder::AddFunction("Fetch", Fetch);
     Decoder::AddFunction("Error", Error);
+    Decoder::AddFunction("Close", Close);
     return sqlite3_open(args[1].c_str(), &Database);
 }
 
 int Executer::Close(std::vector<std::string> args) {
     sqlite3_close(Database);
-    return 200;
+    return -1;
 }
 
 int Executer::Create(std::vector<std::string> args) {
