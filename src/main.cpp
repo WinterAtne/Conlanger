@@ -5,7 +5,7 @@
 
 int main() {
     bool programShouldClose = false;
-    Parser::Parse("Init languages.db");
+    Parser::Init();
     
     
     while(!programShouldClose) {

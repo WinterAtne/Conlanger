@@ -14,14 +14,17 @@ char* Executer::messageError;
     return sqlExitCode; \
 }
 
-int Executer::Init(std::vector<std::string> args) {
+int Executer::Init() {
     Decoder::AddFunction("Create", Create);
     Decoder::AddFunction("Add", Add);
     Decoder::AddFunction("Remove", Remove);
     Decoder::AddFunction("Fetch", Fetch);
     Decoder::AddFunction("Error", Error);
     Decoder::AddFunction("Close", Close);
-    return sqlite3_open(args[1].c_str(), &Database);
+
+    sqlExitCode = sqlite3_open("languages.db", &Database);
+
+    STANDARD_RETURN();
 }
 
 int Executer::Close(std::vector<std::string> args) {

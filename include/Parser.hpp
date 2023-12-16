@@ -8,4 +8,5 @@
 class Parser {
 public:
     static int Parse(const std::string input);
+    static void Init();
 };

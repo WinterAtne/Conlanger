@@ -12,8 +12,8 @@ private:
     
 public:
     static int Error(std::vector<std::string> args);
+    static int Init();
 
-    static int Init(std::vector<std::string> args);
     static int Close(std::vector<std::string> args);
     static int Create(std::vector<std::string> args); // Creates a new language of name, with parents;
     static int Add(std::vector<std::string> args); // Adds something to language 's property
