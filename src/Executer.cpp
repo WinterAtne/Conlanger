@@ -44,8 +44,15 @@ int Executer::Create(std::vector<std::string> args) {
 }
 
 int Executer::Add(std::vector<std::string> args) {
-    std::cout << args[1] << std::endl;
-    return 200;
+    // For ease of reading, the following arguments are gonna get names.
+    std::string table_name = args[1] + "_" + args[2];
+
+    std::string sql = "INSERT INTO " + table_name + "(" + args[3] + ") VALUES (" + args[4] + ");";
+
+
+    sqlExitCode = sqlite3_exec(Database, sql.c_str(), NULL, 0, &messageError);
+
+    STANDARD_RETURN();
 }
 int Executer::Remove(std::vector<std::string> args) {
     std::cout << args[1] << std::endl;
