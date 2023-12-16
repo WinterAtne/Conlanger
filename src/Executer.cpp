@@ -7,6 +7,7 @@ sqlite3 *Executer::Database;
 int Executer::sqlExitCode = 0;
 char* Executer::messageError;
 
+//This is used in almost all of the functions, so it only makes sense to macro it
 #define STANDARD_RETURN() { \
     if (sqlExitCode != SQLITE_OK) { \
         std::cerr << messageError << std::endl; \

@@ -11,14 +11,13 @@ private:
     static char* messageError;
     
 public:
-    static int Error(std::vector<std::string> args);
-    static int Init();
+    static int Init(); //Special initialization function that gets called once
 
-    static int Close(std::vector<std::string> args);
+    static int Error(std::vector<std::string> args); // Special error function that gets called for bad commands.
+
+    static int Close(std::vector<std::string> args); 
     static int Create(std::vector<std::string> args); // Creates a new language of name, with parents;
     static int Add(std::vector<std::string> args); // Adds something to language 's property
     static int Remove(std::vector<std::string> args); // Removes something from a language 's property
-
-    // Fetch will be the most complicated to impliment and will come last, despite possibly being the most important
     static int Fetch(std::vector<std::string> args); // Fetches something from language 's property 
 };
