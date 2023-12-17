@@ -25,15 +25,6 @@ int Executer::Init() {
 
     sqlExitCode = sqlite3_open("languages.db", &Database);
     STANDARD_RETURN();
-
-    //Further setup is required for the database;
-    std::string sql = "CREATE table if not exists Master_Lexicon (WordID INT, InitialValue TEXT, FirstOccurance TEXT);";
-    sqlExitCode = sqlite3_exec(Database, sql.c_str(), NULL, 0, &messageError);
-    STANDARD_RETURN();
-    sql = "CREATE table if not exists Language_Lists (Name TEXT, Parents TEXT, Daughters TEXT);";
-    sqlExitCode = sqlite3_exec(Database, sql.c_str(), NULL, 0, &messageError);
-    STANDARD_RETURN();
-
     return 0;
 }
 
