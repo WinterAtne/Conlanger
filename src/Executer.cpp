@@ -15,6 +15,19 @@ char* Executer::messageError;
     } \
 }
 
+static int callback(void* data, int argc, char** value, char** columnName) 
+{ 
+    int i; 
+    fprintf(stderr, "%s: ", (const char*)data); 
+  
+    for (i = 0; i < argc; i++) { 
+        printf("%s = %s\n", columnName[i], value[i] ? value[i] : "NULL"); 
+    } 
+  
+    printf("\n"); 
+    return 0; 
+} 
+
 int Executer::Init() {
     Decoder::AddFunction("Create", Create);
     Decoder::AddFunction("Add", Add);
@@ -66,7 +79,12 @@ int Executer::Remove(std::vector<std::string> args) {
     return 200;
 }
 int Executer::Fetch(std::vector<std::string> args) {
-    std::cout << args[1] << std::endl;
+    std::string table = args[1] + "_" + args[2];
+
+    std::string sql = "SELECT * FROM " + table;
+    sqlExitCode = sqlite3_exec(Database, sql.c_str(), callback, NULL, &messageError);
+
+    STANDARD_RETURN();
     return 200;
 }
 int Executer::Error(std::vector<std::string> args) {
