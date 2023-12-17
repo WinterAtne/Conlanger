@@ -38,7 +38,7 @@ int Executer::Create(std::vector<std::string> args) {
     std::string language = args[1];
 
     std::string sql = "CREATE TABLE " + language + "_Lexicon("
-                      "WordID INT, "
+                      "WordID TEXT, "
                       "Definition TEXT, "
                       "PartOfSpeech TEXT "
                       ");";
